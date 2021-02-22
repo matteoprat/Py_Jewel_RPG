@@ -1,0 +1,56 @@
+PLAYER STATS:
+
+0 gold
+1 attack
+2 phisical shield
+3 heal
+4 magic defense
+5 magic dmg enemy
+6 magic slow enemy
+7 add crit
+
+BASE STATS:
+atk: (1 * gem destroyed) + ((1 * gem destroyed)*2 if crit)
+shield: 1 + shield * turn 
+heal: 1
+HP = 100
+magic def = 1 + magic def * turn
+magic dmg = 1 * gem destroyed
+magic slow = 1 * gem destroyed
+crit = 1% + gem destroyed val keep during level
+
+
+store: all items have 5 tier
+
+buy sword (passive base atk)
+buy shield (passive base def)
+buy armor (passive base def)
+buy rod (passive magic atk)
+buy life (passive life)
+-----------------
+
+enhance gem: all gems have 10 tier
+
+gold ++
+attack ++
+phis_shield ++
+heal ++
+magic defense ++
+magic dmg multiplier ++
+magic slow secs ++
+crit % ++ (crit 200% dmg)
+-----------------------------------------------------
+
+------------
+ENEMY STATS:
+------------
+enemy name
+enemy pictures
+HP
+DMG
+ATK SPD
+MAGIC DMG
+MAGIC SPD
+SPECIAL DMG
+SPECIAL COOLDOWN
+GOLD BONUS IF KILLED
