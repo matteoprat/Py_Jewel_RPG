@@ -334,7 +334,7 @@ class Game:
         self.draw_board()
         
         while board.board_have_moves(self.board) == False:
-            self.board = board.create_new_grid()
+            self.board = board.create_new_board()
         
         mousedown = False
         while running:
