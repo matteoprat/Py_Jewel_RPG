@@ -175,8 +175,6 @@ class Enemy:
         self.magic_cooldown = self.magic_speed
         self.special_cooldown = self.special_speed
         
-        self.active_enemy = False
-        
     def apply_damage(self, damage):
         self.hp -= damage
         

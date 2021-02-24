@@ -10,7 +10,7 @@ JEWELS = ["g", "b", "r", "p", "y", "v", "o", "c",
           ] 
 
 BOARD_WIDTH = 1024
-BOARD_HEIGTH = 768
+BOARD_HEIGHT = 768
 
 MARGIN_TOP = 24
 MARGIN_LEFT = 403

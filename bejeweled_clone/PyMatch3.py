@@ -11,7 +11,7 @@ from settings import *
 pygame.init()
 pygame.mixer.init()
 pygame.display.set_caption("RPyGjeweled")
-surface = pygame.display.set_mode(size=(BOARD_WIDTH, BOARD_HEIGTH))
+surface = pygame.display.set_mode(size=(BOARD_WIDTH, BOARD_HEIGHT))
 IMAGES = {k:pygame.image.load(f"assets/jewel_{k}.png").convert_alpha() for k in JEWELS}
 IMG_DOTS = {k:pygame.image.load(f"assets/{v}.png").convert_alpha() for k, v in LVL_GFX.items()}
 IMG_STATS = pygame.image.load("assets/gem_levels.png").convert_alpha()
@@ -31,7 +31,6 @@ class Game:
         self.enemies = self.new_level()
         self.spawn_enemy()
         self.msg = messages.Messages(self.surface)
-        #self.enemy_killed = False
         self.enemy_killed_msg = ""
         self.enemy_killed_cooldown = 0
         self.level_start = True
@@ -70,6 +69,7 @@ class Game:
     
     def new_level(self):
         self.stagename = f"LEVEL {self.level+1}: {STAGE_NAME[self.level]}"
+        self.level_hint = 3
         return [n for n in LEVELS[self.level]]
               
     def spawn_enemy(self):
@@ -163,19 +163,20 @@ class Game:
                 col_affected = board.check_match_col(self.board)
             
             result = score.calculate_score(scores, self.player, self.enemy)
+            # result is -1 if the enemy is alive otherwise it contain a message
             if result != -1:
                 self.enemy_killed_msg = result
                 self.enemy_killed_cooldown = 30*2
-            if self.enemy.hp <= 0:
                 self.player.gold += self.enemy.gold
-                #self.enemy_killed = True
                 self.enemies.pop(0)
                 del self.enemy
+                # check if the level have other enemies
                 if len(self.enemies) > 0:
                     self.spawn_enemy()
                 else:
                     self.level_up = True
                     self.level+=1
+                    # check if current stage is < than max stage
                     if len(LEVELS) > self.level:
                         self.play_sound("stage_clear")                        
                         self.player.level_up(self.level)
@@ -204,6 +205,8 @@ class Game:
     
     def update_destroyed(self):
         newy = -60
+        # we initialize a dictionary containing columns and number of shifts
+        # per columns
         vpos = {k:1 for k in range(COL_N)}
         
         for row in range(ROW_N-1, -1, -1):
@@ -302,6 +305,7 @@ class Game:
        
     def buy_upgrade(self):
         mouse_x, mouse_y = pygame.mouse.get_pos()
+        # s = top; e = bottom; d = distance from top and next top 
         s,e,d = (367.5,394.5,48)
         
         if PLUS_LEFT < mouse_x <= 330:
@@ -318,6 +322,7 @@ class Game:
         
     def show_tooltip(self):
         mouse_x, mouse_y = pygame.mouse.get_pos()
+        # s = top; e = bottom; d = distance from top and next top
         s,e,d=(361,402,47)
         stats = {(s+(d*i),e+(d*i)):i for i in range(8)}
         if 38 < mouse_x < 78:

@@ -8,8 +8,6 @@ class Messages:
     def __init__(self, parent):
         self.surface = parent
         self.title_height = 0
-        self.enemies_list_height = 0
-        self.current_enemy_height = 0
         self.FONT_NORMAL = pygame.font.SysFont("arial", 14)
         self.FONT_TITLE = pygame.font.SysFont("arial", 12)
         self.FONT_ALERT = pygame.font.SysFont("arial", 50)
@@ -31,7 +29,6 @@ class Messages:
             if h == 0:
                 h = label_enemies.get_height()
             self.surface.blit(label_enemies, (BOX_LEFT, MIDBOX_TOP+(h*i+2)))
-        self.enemies_list_height = h*i+(2*i)
         
     def msg_current_stats(self, enemy):
         
@@ -59,7 +56,7 @@ class Messages:
         self.surface.blit(label_tooltip, (BOX_LEFT+40,pos_y+10))
             
     def msg_upgrades(self, player, IMG_STATS, IMG_DOTS):
-         # PLAYER LIFE / GOLD
+        # PLAYER LIFE / GOLD
         lines = [f"HP: {player.current_hp}",f"GOLD: {player.gold}"]
         h = 0
         for i, line in enumerate(lines):
